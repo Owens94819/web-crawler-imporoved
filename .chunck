@@ -1,0 +1,377 @@
+
+
+var url = 'http://localhost:12345/some%20thing/http%3A%2F%2Flocalhost%3A1234/test/test.html'
+url = 'http://localhost:12345/'
+url = 'http://localhost:12345/p'
+fetch(url).then(function (e) {
+    var header = e.headers
+    return e.text()
+}).then(function (e) {
+    // console.log(e);
+});
+
+
+
+ function forge(url,req,res,only_data) {
+    return new Promise( async function(r){
+    
+    res.setHeader("X-Url", url)
+
+var qr = req.query.s_
+var includes_injection
+
+// if (req.headers['sec-fetch-dest'].search(/^iframe$|^document$/i)>=0) {
+//     includes_injection=true
+// }
+
+// if (req.headers['sec-fetch-dest']!=="iframe"&&req.headers['sec-fetch-mode']==="no-cors"&&req.headers['sec-fetch-site']==='same-origin'&& req.headers['referer']) {
+//     }else if(req.headers['sec-fetch-dest']==="iframe"&&req.headers['sec-fetch-mode']==='navigate'){
+//      includes_injection=true
+//     }else{
+//     }
+
+
+var _url=new URL(url);
+        req.headers.host=_url.host
+        req.headers.origin=_url.origin
+        req.headers.referer=_url.origin+'/'
+        req.headers['sec-fetch-site']='same-origin'
+        req.headers['sec-fetch-mode']='navigate'//no-cors
+        if (!req.headers['sec-fetch-dest']) {
+            req.headers['sec-fetch-dest']='document'
+        }
+
+        var obj = {
+            method:req.method,
+            headers: req.headers,
+            body: "",
+    redirect: 'follow',
+    follow:20,
+    compress:true
+        }
+
+        if (typeof req.body === 'object') {
+            for (const key in req.body) {
+            if (obj.body) {
+                obj.body += "&" + encodeURIComponent(key) + '=' + encodeURIComponent(req.body[key])
+            } else {
+                obj.body += encodeURIComponent(key) + '=' + encodeURIComponent(req.body[key])
+            }
+        }
+        }else{
+           obj.body=req.body
+        }
+
+
+        if (!obj.body) {
+            delete obj.body
+        } else {
+            obj.headers["Content-Length"] = obj.body.length;
+        }
+
+
+      
+
+        // for (var key in req.headers) {
+        //     if ((key[0] + key[1]).toLowerCase().trim() === "x-") {
+        //         obj.headers[key.trim().substring(2)] = req.headers[key]
+        //     } else if ((key[0] + key[1]).toLowerCase().trim() === "o-" && key.substring(2) !== "headers") {
+        //         obj[key.trim().substring(2)] = req.headers[key]
+        //     }
+        // };
+
+        url = await fetch(url, obj);
+        res.status(url.status)
+        
+        var header = url.headers
+        if ((header.get('content-type')||'').search(/^text\/html;?/i)===0) {
+            includes_injection=true
+        }else{
+            includes_injection=false;
+        }
+
+        _url.href=url.url
+        res.setHeader("X-Url", url.url)
+
+        url = await url.text();
+
+        if (qr) {
+            try {
+                qr = new Base64(qr).decode()
+                qr = JSON.parse(qr)
+            } catch (e) {
+            }
+
+            if (qr) {
+                if (qr.top_text) {
+                    url = qr.top_text + url
+                }
+                if (qr.bottom_text) {
+                    url = qr.bottom_text + url
+                }
+                if (qr.regex instanceof Array && qr.regex[0]) {
+                    try {
+                        qr.regex[0] = eval(qr.regex[0])
+                        url = url.replace(qr.regex[0], qr.regex[1])
+                    } catch (error) {
+                        qr.regex[0] = null
+                    }
+                }
+            }
+        }
+
+// console.log(_url,header.forEach,'-------------------------------');
+// console.log(header);
+
+// header.forEach(function(value,key){
+//     console.log(key,value);
+//     if (key==="cache-control"&&value.includes("max-age=0")) {
+//         value="no-store"
+//     }
+
+//     if (
+//         `
+//         transfer-encoding:
+//         pragma:
+//         expires:
+//         priority:
+//         alt-svc:
+//         content-security-policy-report-only:
+//         content-security-policy:
+//         strict-transport-security:
+//         x-fb-debug:
+//         report-to:
+//         set-cookie:
+//         `.includes(key+':')) {
+//             console.log(key);
+//             return
+//         }
+//         res.setHeader(key, value)
+// })
+
+// console.log('-------------------');
+// console.log('-------------------');
+// res.setHeader("Cache-Control", "max-age=10")
+// res.setHeader("Cache-Control", "public, max-age=10")
+// res.setHeader("Cache-Control", "max-age=3000")
+// if (req.method.toLowerCase() !== 'get') {
+    // res.setHeader("Cache-Control", "no-store")
+// }
+
+    // res.setHeader("Cache-Control", "no-store")
+    
+// res.setHeader('x-powered-by', ['nimo-org'])
+        if (req.headers.returned_content_type) {
+            res.setHeader('content-type', req.headers.returned_content_type)
+        }
+        // else {
+        //     res.setHeader('content-type', header.get('content-type'))
+        // }
+
+// for (const key in header) {
+//     res.setHeader(key, header.get(key))
+// }
+
+        if (req.headers.includes_injection|| includes_injection) {
+            injection=`<script>var __location=decodeURIComponent(\`${encodeURIComponent(_url)}\`)</script>`+injection;
+            res.setHeader('content-length', url.length+injection.length)
+            res.write(injection);
+        }
+
+        res.end(url);
+    });
+}
+
+
+//     if (script===url) {
+//         script=undefined
+//     }
+// console.log('in');
+// console.log(_referer);
+
+
+
+var qr = req.query.s_
+
+if (qr) {
+    try {
+        qr = new Base64(qr).decode()
+        qr = JSON.parse(qr)
+    } catch (e) {}
+
+    if (qr) {
+        if (qr.top_text) {
+            url = qr.top_text + url
+        }
+        if (qr.bottom_text) {
+            url = qr.bottom_text + url
+        }
+        if (qr.regex instanceof Array && qr.regex[0]) {
+            try {
+                qr.regex[0] = eval(qr.regex[0])
+                url = url.replace(qr.regex[0], qr.regex[1])
+            } catch (error) {
+                qr.regex[0] = null
+            }
+        }
+    }
+}
+    app2 = express(),
+
+    server2 = app2.listen(process.env.PORT || 123, () => {
+        var port = server2.address().port;
+        console.log(`http://localhost:${port}\n-----------`);
+    });
+
+app2.use(express.urlencoded({ extended: false }))
+app2.use(express.json())
+app2.use('/post',function(req,res){
+    res.cookie('p','pp')
+    res.cookie('p','pp')
+    res.setHeader("a", "77777")
+    // console.log(req.body.d,req.method);
+
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:1234")
+    res.setHeader("location", "/post2")
+    res.sendStatus(307)
+// res.send('Permanent Redirect')
+    // res.redirect('/post2')
+    // res.json({qery:req.query,body:req.body})
+})
+app2.use('/post2',function(req,res){
+    console.log(req.headers);
+    res.send('@@@@@@@')
+})
+app2.use('/',function(req,res){
+    console.log(req.headers);
+    res.send('2')
+})
+
+app.use('/post2',function(req,res){
+    console.log(req.headers);
+    res.send({qery:req.query,body:req.body,headers:req.headers})
+})
+
+app.use('*/post',function(req,res){
+    res.cookie('p','pp')
+    res.cookie('p','pp')
+    res.setHeader("a", "77777")
+    // console.log(req.body.d,req.method);
+
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:1234")
+    // res.setHeader("x-url", req.originalUrl)
+    // var url=req.originalUrl.replace(/(^[])*(\?|#)([]+)/,'$2$3')
+    // console.log(req._parsedUrl.search,req.url);
+    res.setHeader("location", "/post2"+req._parsedUrl.search)
+    res.sendStatus(307)
+// res.send('Permanent Redirect')
+    // res.redirect('/post2')
+    // res.json({qery:req.query,body:req.body})
+})
+
+
+     // if (req.method.toLowerCase()==='get') {
+        //     url = encodeURIComponent(new URL(req.headers.referer).pathname.substring(1)).trim()+'/'+url
+        //     // console.log('redirected',req.headers.referer,url);
+        // res.redirect('/'+url)
+        // return
+        // }
+       
+        // return;
+
+        
+    // console.log('redirected',req.headers.referer,url);
+
+    // res.setHeader('Location','/dd/s')
+    // res.setHeader('Vary','Accept')
+    // res.send('-----')
+    // res.redirect('http://localhost:12345/post?e=5')
+    // res.redirect('/'+url)
+
+    // if (req.headers['sec-fetch-dest'].search(/^iframe$|^document$/i)>=0) {
+//     includes_injection=true
+// }
+
+// if (req.headers['sec-fetch-dest']!=="iframe"&&req.headers['sec-fetch-mode']==="no-cors"&&req.headers['sec-fetch-site']==='same-origin'&& req.headers['referer']) {
+//     }else if(req.headers['sec-fetch-dest']==="iframe"&&req.headers['sec-fetch-mode']==='navigate'){
+//      includes_injection=true
+//     }else{
+//     }
+
+
+ // for (var key in req.headers) {
+        //     if ((key[0] + key[1]).toLowerCase().trim() === "x-") {
+        //         obj.headers[key.trim().substring(2)] = req.headers[key]
+        //     } else if ((key[0] + key[1]).toLowerCase().trim() === "o-" && key.substring(2) !== "headers") {
+        //         obj[key.trim().substring(2)] = req.headers[key]
+        //     }
+        // };
+
+
+
+        // header.forEach(function(value,key){
+//     console.log(key,value);
+//     if (key==="cache-control"&&value.includes("max-age=0")) {
+//         value="no-store"
+//     }
+//     if (
+//         `
+//         transfer-encoding:
+//         pragma:
+//         expires:
+//         priority:
+//         alt-svc:
+//         content-security-policy-report-only:
+//         content-security-policy:
+//         strict-transport-security:
+//         x-fb-debug:
+//         report-to:
+//         set-cookie:
+//         `.includes(key+':')) {
+//             console.log(key);
+//             return
+//         }
+//         // res.setHeader(key, value)
+// })
+
+
+
+
+
+        // console.log('-------------------');
+// console.log('-------------------');
+// res.setHeader("Cache-Control", "max-age=10")
+// res.setHeader("Cache-Control", "public, max-age=10")
+// res.setHeader("Cache-Control", "max-age=3000")
+// if (req.method.toLowerCase() !== 'get') {
+    // res.setHeader("Cache-Control", "no-store")
+// }
+
+
+    // res.setHeader("Cache-Control", "no-store")
+    
+// res.setHeader('x-powered-by', ['nimo-org'])
+
+
+        // else {
+        //     res.setHeader('content-type', header.get('content-type'))
+        // }
+
+// for (const key in header) {
+//     res.setHeader(key, header.get(key))
+// }
+
+
+
+
+//     fetch('http://localhost:12345/l/l/post?h=9',{method:'post',headers:{"content-type":'application/x-www-form-urlencoded','p':'000'},body:'d=9&k=9',    redirect: 'follow',
+//     follow:20,
+//     compress:true}).then(function(e){
+//         var header=e.headers
+//     // console.log(header);
+// return e.text()
+// }).then(function(e){
+//     // console.log(e);
+// });
+
+
