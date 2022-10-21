@@ -182,8 +182,8 @@ app.use('/', async function (req, res) {
         if (req.headers.returned_content_type) {
             res.setHeader('content-type', req.headers.returned_content_type)
         }else{
-            res.setHeader('content-type', header.get('content-type'))
         }
+        res.setHeader('content-type', header.get('content-type'))
 
         if (req.headers.includes_injection || includes_injection) {
             injection = `<script>var __location=decodeURIComponent(\`${encodeURIComponent(_url)}\`)</script>` + injection;
