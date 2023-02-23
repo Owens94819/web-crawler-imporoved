@@ -69,7 +69,8 @@ parseURL.isdomain = function (url) {
 
 
 const express = require('express'),
-http = require('http'),
+_http = require('http'),
+_https = require('https'),
     app = express(),
     fs = require('fs'),
     fetch = require('node-fetch'),
@@ -89,7 +90,9 @@ app.use(express.json())
 
 
 app.use("/anti-cors", function (req,res){
-    
+   
+ const http = https;
+
     res.setHeader("Access-Control-Allow-Origin", "*")
     res.header('x-powered-by', 'nimo-org')
     res.setHeader("Access-Control-Expose-Headers", "X-Url")
