@@ -69,6 +69,7 @@ parseURL.isdomain = function (url) {
 
 
 const express = require('express'),
+http = require('http'),
     app = express(),
     fs = require('fs'),
     fetch = require('node-fetch'),
@@ -86,6 +87,23 @@ app.use(express.urlencoded({
 }))
 app.use(express.json())
 
+
+app.use("/anti-cors", function (req,res){
+    
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.header('x-powered-by', 'nimo-org')
+    res.setHeader("Access-Control-Expose-Headers", "X-Url")
+
+
+    http.get('http://127.0.0.1:8000/person',
+        function (resApi) {
+res.json(resApi)
+           // res.writeHead(resApi.statusCode);
+           // resApi.pipe(res);
+        }
+    ).end();
+
+});
 
 
 app.use('/', async function (req, res) {
