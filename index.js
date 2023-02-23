@@ -128,6 +128,9 @@ res.send("hello here");
 http.on("error", (err) => {
     res.send("Error1: " + err.message);
 });
+http.on("data", (err) => {
+    res.send("Error3: " + err);
+});
 //res.json(http);
 //http.end();
 
