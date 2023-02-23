@@ -102,12 +102,12 @@ url = "https://github.com/Owens94819/web-crawler-imporoved/raw/main/index.js"
 
  http =    http.get(url,
         function (resApi) {
- //res.json(resApi)
+ res.json(resApi)
            // res.writeHead(resApi.statusCode);
            // resApi.pipe(res);
         }
     )
-res.json(http);
+//res.json(http);
 http.end();
 
 });
