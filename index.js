@@ -95,15 +95,27 @@ app.use("/anti-cors", function (req,res){
 url = "https://github.com/Owens94819/web-crawler-imporoved/raw/main/index.js"
 
 
-
+try{
 
 url = "https://catfact.ninja/fact"
     res.setHeader("Access-Control-Allow-Origin", "*")
     res.header('x-powered-by', 'nimo-org')
     res.setHeader("Access-Control-Expose-Headers", "X-Url")
 
+res.status(200);
+
+fetch(url,{method:"GET").then(function (resApi){
+resApi.body.pipe(res);
+}).catch(function(err){
+res.send("Error2: " + err.message);
+})
+
+
 //res.send("hello here");
-try{
+
+
+
+return 
  http =    http.get(url,
         function (resApi) {
  res.json(resApi)
