@@ -95,7 +95,7 @@ app.use("/anti-cors", function (req,res){
     res.setHeader("Access-Control-Expose-Headers", "X-Url")
 
 
-    http.get('http://127.0.0.1:8000/person',
+    http.get('https://google.com',
         function (resApi) {
 res.json(resApi)
            // res.writeHead(resApi.statusCode);
