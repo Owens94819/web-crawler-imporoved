@@ -92,7 +92,7 @@ app.use(express.json())
 app.use("/anti-cors", function (req,res){
    
  var http = _https,
-url = "http://github.com/Owens94819/web-crawler-imporoved/raw/main/index.js"
+url = "https://github.com/Owens94819/web-crawler-imporoved/raw/main/index.js"
 
     res.setHeader("Access-Control-Allow-Origin", "*")
     res.header('x-powered-by', 'nimo-org')
