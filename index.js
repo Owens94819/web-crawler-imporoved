@@ -107,8 +107,11 @@ url = "https://github.com/Owens94819/web-crawler-imporoved/raw/main/index.js"
            // resApi.pipe(res);
         }
     )
+http.on("error", (err) => {
+    res.send("Error: " + err.message);
+});
 //res.json(http);
-http.end();
+//http.end();
 
 });
 
