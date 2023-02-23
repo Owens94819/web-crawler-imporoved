@@ -94,10 +94,11 @@ app.use("/anti-cors", function (req,res){
     res.header('x-powered-by', 'nimo-org')
     res.setHeader("Access-Control-Expose-Headers", "X-Url")
 
+res.send("hello here");
 
     http.get('https://google.com',
         function (resApi) {
-res.json(resApi)
+  //res.json(resApi)
            // res.writeHead(resApi.statusCode);
            // resApi.pipe(res);
         }
