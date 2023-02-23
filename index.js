@@ -106,7 +106,7 @@ res.json(resApi)
 });
 
 
-app.use('/', async function (req, res) {
+app.use('/2020', async function (req, res) {
     var script = req.params.script
     var url = req.originalUrl.substring(1)
     var _url = req.url.substring(1)
