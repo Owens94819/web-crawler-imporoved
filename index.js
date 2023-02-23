@@ -104,21 +104,23 @@ url = "https://catfact.ninja/fact"
 
 res.status(200);
 
-fetch(url,{method:"GET").then(function (resApi){
-resApi.body.pipe(res);
-}).catch(function(err){
-res.send("Error2: " + err.message);
-})
+//fetch(url,{method:"GET").then(function (resApi){
+//resApi.body.pipe(res);
+//}).catch(function(err){
+//res.send("Error2: " + err.message);
+//})
 
 
 //res.send("hello here");
 
 
 
-return 
+//return 
  http =    http.get(url,
         function (resApi) {
- res.json(resApi)
+
+res.send("hello here");
+ //res.json(resApi)
            // res.writeHead(resApi.statusCode);
            // resApi.pipe(res);
         }
