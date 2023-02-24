@@ -115,7 +115,7 @@ url = "https://catfact.ninja/fact"
  http =    http.get(url,
         function (resApi){
             res.writeHead(resApi.statusCode);
-            res.write("12345");
+           // res.write("12345");
             resApi.pipe(res);
         }
     )
