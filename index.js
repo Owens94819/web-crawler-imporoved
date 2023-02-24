@@ -66,7 +66,7 @@ parseURL.isdomain = function (url) {
 }
 
 
-var compression = require('compression');
+//var compression = require('compression');
 
 const express = require('express'),
 protocol={
