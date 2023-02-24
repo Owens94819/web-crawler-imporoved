@@ -130,12 +130,12 @@ if(!http) return res.status(404), res.send("invalid url");
     res.setHeader("Access-Control-Expose-Headers", "X-Url")
 
  http =    http.get(url,
-        function (resApi){
-    console.log(resApi.headers);
-            res.writeHead(resApi.statusCode);
-            // res.setHeader('content-type', 'content-type')
+        function (req){
+          // console.log(req.headers);
+            res.writeHead(req.statusCode);
+             res.setHeader('content-type', req.headers['content-type'])
           // res.write("12345");
-            resApi.pipe(res);
+            req.pipe(res);
         }
     )
 
