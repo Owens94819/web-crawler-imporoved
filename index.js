@@ -100,7 +100,7 @@ url;
 
 
 try{
-console.log("\n\nconnection opened!\n\n");
+//console.log("\n\nconnection opened!\n\n");
 
 
 //console.log(req.headers);
@@ -113,7 +113,7 @@ console.log("\n\nconnection opened!\n\n");
  url ="https://url.url/"+req.originalUrl.replace(/\/?anti\-cors\/?/,"");
 
  url = new URL( new URL(url).pathname.substring(1));
-console.log(url)
+//console.log(url)
 
 http=protocol[url.protocol]
 
@@ -122,7 +122,7 @@ if(!http) return res.status(404), res.send("invalid url");
 //url = "https://catfact.ninja/fact"
 
 
-console.log("\n----\n")
+//console.log("\n----\n")
 
 
     res.setHeader("Access-Control-Allow-Origin", "*")
@@ -131,8 +131,10 @@ console.log("\n----\n")
 
  http =    http.get(url,
         function (resApi){
+    console.log(resApi.headers);
             res.writeHead(resApi.statusCode);
-           // res.write("12345");
+            // res.setHeader('content-type', 'content-type')
+          // res.write("12345");
             resApi.pipe(res);
         }
     )
