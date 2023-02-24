@@ -96,7 +96,13 @@ url = "https://github.com/Owens94819/web-crawler-imporoved/raw/main/index.js"
 
 
 try{
+console.log("\n\nconnection opened!\n\n");
 
+
+console.log(req.headers);
+console.log(req);
+
+//var url = new URL(url);
 url = "https://catfact.ninja/fact"
 
     res.setHeader("Access-Control-Allow-Origin", "*")
@@ -104,10 +110,7 @@ url = "https://catfact.ninja/fact"
     res.setHeader("Access-Control-Expose-Headers", "X-Url")
 
  http =    http.get(url,
-        function (resApi) {
-
-console.log(resApi);
-
+        function (resApi){
             res.writeHead(resApi.statusCode);
             resApi.pipe(res);
         }
