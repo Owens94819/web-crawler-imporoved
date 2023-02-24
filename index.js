@@ -119,8 +119,8 @@ res.status(200);
  http =    http.get(url,
         function (resApi) {
 
-res.send("hello here");
- //res.json(resApi)
+//res.send("hello here");
+ res.json(resApi)
            // res.writeHead(resApi.statusCode);
            // resApi.pipe(res);
         }
