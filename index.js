@@ -97,47 +97,29 @@ url = "https://github.com/Owens94819/web-crawler-imporoved/raw/main/index.js"
 
 try{
 
-url = "https://catfact.ninja/fact"
+//url = "https://catfact.ninja/fact"
+
     res.setHeader("Access-Control-Allow-Origin", "*")
     res.header('x-powered-by', 'nimo-org')
     res.setHeader("Access-Control-Expose-Headers", "X-Url")
 
-res.status(200);
-
-//fetch(url,{method:"GET").then(function (resApi){
-//resApi.body.pipe(res);
-//}).catch(function(err){
-//res.send("Error2: " + err.message);
-//})
-
-
-//res.send("hello here");
-
-
-
-//return 
  http =    http.get(url,
         function (resApi) {
-
-//res.send("hello here");
-// res.json(resApi)
             res.writeHead(resApi.statusCode);
             resApi.pipe(res);
         }
     )
+
 http.on("error", (err) => {
     res.send("Error1: " + err.message);
 });
-http.on("data", (err) => {
- //   res.send("Error3: " + err);
-});
-//res.json(http);
-//http.end();
+
+http.end();
+http=void 0;
 
 } catch(err){
 res.send("Error2: " + err.message);
 }
-
 });
 
 
