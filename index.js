@@ -99,17 +99,23 @@ try{
 console.log("\n\nconnection opened!\n\n");
 
 
-console.log(req.headers);
-console.log(req._parsedUrl.search);
-console.log(req.url)
-console.log(req.originalUrl)
-console.log(req.path)
-console.log("\n----\n");
+//console.log(req.headers);
+//console.log(req._parsedUrl.search);
+//console.log(req.url)
+//console.log(req.originalUrl)
+//console.log(req.path)
 
 
-//var url = new URL(url);
+var url ="https://url.url/"+".."+req.originalUrl;
+console.log(url);
+
+ url = new URL(url);
+console.log(url)
+
 url = "https://catfact.ninja/fact"
 
+
+console.log("\n----\n")
     res.setHeader("Access-Control-Allow-Origin", "*")
     res.header('x-powered-by', 'nimo-org')
     res.setHeader("Access-Control-Expose-Headers", "X-Url")
