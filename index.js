@@ -66,9 +66,9 @@ parseURL.isdomain = function (url) {
 }
 
 
-var compression = require('compression');
 
 const express = require('express'),
+compression = require('compression'),
 protocol={
 "http:" : require('http'),
 "https:" :require('https'),
@@ -82,9 +82,8 @@ protocol={
     });
 var injection;
 
-
-
-
+console.log(compression);
+app.use(compression())
 app.use(express.urlencoded({
     extended: false
 }))
