@@ -89,7 +89,7 @@ app.use(express.urlencoded({
 app.use(express.json())
 
 
-app.use("/anti-cors", function (req,res){
+app.use("/anti-cors*", function (req,res){
    
  var http = _https,
 url = "https://github.com/Owens94819/web-crawler-imporoved/raw/main/index.js"
