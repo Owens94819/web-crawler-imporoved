@@ -97,7 +97,7 @@ url = "https://github.com/Owens94819/web-crawler-imporoved/raw/main/index.js"
 
 try{
 
-//url = "https://catfact.ninja/fact"
+url = "https://catfact.ninja/fact"
 
     res.setHeader("Access-Control-Allow-Origin", "*")
     res.header('x-powered-by', 'nimo-org')
