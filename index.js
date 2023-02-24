@@ -100,7 +100,10 @@ console.log("\n\nconnection opened!\n\n");
 
 
 console.log(req.headers);
-console.log(req);
+console.log(req._parsedUrl.search);
+console.log(req.url)
+console.log(req.originalUrl)
+
 
 //var url = new URL(url);
 url = "https://catfact.ninja/fact"
