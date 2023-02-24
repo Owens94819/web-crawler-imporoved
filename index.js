@@ -94,7 +94,9 @@ app.use(express.json())
 app.use("/anti-cors*", function (req,res,next){
    
  var http,
-url = "https://github.com/Owens94819/web-crawler-imporoved/raw/main/index.js"
+url;
+
+//= "https://github.com/Owens94819/web-crawler-imporoved/raw/main/index.js"
 
 
 try{
@@ -109,9 +111,8 @@ console.log("\n\nconnection opened!\n\n");
 
 
 var url ="https://url.url/"+req.originalUrl.replace(/\/?anti\-cors\/?/,"");
-console.log(url);
 
- url = new URL( new URL(url).pathname );
+ url = new URL( new URL(url).pathname.substring(1));
 console.log(url)
 
 http=protocol[url.protocol]
