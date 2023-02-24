@@ -103,6 +103,8 @@ console.log(req.headers);
 console.log(req._parsedUrl.search);
 console.log(req.url)
 console.log(req.originalUrl)
+console.log(req.path)
+console.log("\n----\n");
 
 
 //var url = new URL(url);
