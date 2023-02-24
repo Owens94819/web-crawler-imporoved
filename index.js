@@ -120,16 +120,16 @@ res.status(200);
         function (resApi) {
 
 //res.send("hello here");
- res.json(resApi)
-           // res.writeHead(resApi.statusCode);
-           // resApi.pipe(res);
+// res.json(resApi)
+            res.writeHead(resApi.statusCode);
+            resApi.pipe(res);
         }
     )
 http.on("error", (err) => {
     res.send("Error1: " + err.message);
 });
 http.on("data", (err) => {
-    res.send("Error3: " + err);
+ //   res.send("Error3: " + err);
 });
 //res.json(http);
 //http.end();
