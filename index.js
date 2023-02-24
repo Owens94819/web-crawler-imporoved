@@ -106,7 +106,7 @@ console.log("\n\nconnection opened!\n\n");
 //console.log(req.path)
 
 
-var url ="https://url.url/"+".."+req.originalUrl;
+var url ="https://url.url/"+req.originalUrl.replace(/\/anti\-cors\/?/,"/");
 console.log(url);
 
  url = new URL(url);
