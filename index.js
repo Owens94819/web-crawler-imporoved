@@ -70,8 +70,8 @@ parseURL.isdomain = function (url) {
 
 const express = require('express'),
 protocol={
-http : require('http'),
-https:require('https'),
+"http:" : require('http'),
+"https:" :require('https'),
 },
     app = express(),
     fs = require('fs'),
@@ -110,7 +110,7 @@ console.log("\n\nconnection opened!\n\n");
 //console.log(req.path)
 
 
-var url ="https://url.url/"+req.originalUrl.replace(/\/?anti\-cors\/?/,"");
+ url ="https://url.url/"+req.originalUrl.replace(/\/?anti\-cors\/?/,"");
 
  url = new URL( new URL(url).pathname.substring(1));
 console.log(url)
@@ -119,10 +119,12 @@ http=protocol[url.protocol]
 
 if(!http) return res.status(404), res.send("invalid url");
 
-url = "https://catfact.ninja/fact"
+//url = "https://catfact.ninja/fact"
 
 
 console.log("\n----\n")
+
+
     res.setHeader("Access-Control-Allow-Origin", "*")
     res.header('x-powered-by', 'nimo-org')
     res.setHeader("Access-Control-Expose-Headers", "X-Url")
@@ -145,6 +147,7 @@ http=void 0;
 } catch(err){
 res.send("Error2: " + err.message);
 }
+
 });
 
 
