@@ -132,9 +132,11 @@ if(!http) return res.status(404), res.send("invalid url");
  http =    http.get(url,
         function (req){
           // console.log(req.headers);
-            res.writeHead(req.statusCode);
+
+             res.status(req.statusCode);
              res.setHeader('content-type', req.headers['content-type'])
-          // res.write("12345");
+         
+           // res.write("12345");
             req.pipe(res);
         }
     )
