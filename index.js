@@ -82,7 +82,7 @@ protocol={
     });
 var injection;
 
-console.log(compression);
+
 app.use(compression())
 app.use(express.urlencoded({
     extended: false
