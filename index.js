@@ -69,8 +69,10 @@ parseURL.isdomain = function (url) {
 
 
 const express = require('express'),
-_http = require('http'),
-_https = require('https'),
+protocol={
+http : require('http'),
+https:require('https'),
+},
     app = express(),
     fs = require('fs'),
     fetch = require('node-fetch'),
@@ -89,9 +91,9 @@ app.use(express.urlencoded({
 app.use(express.json())
 
 
-app.use("/anti-cors*", function (req,res){
+app.use("/anti-cors*", function (req,res,next){
    
- var http = _https,
+ var http,
 url = "https://github.com/Owens94819/web-crawler-imporoved/raw/main/index.js"
 
 
@@ -106,11 +108,15 @@ console.log("\n\nconnection opened!\n\n");
 //console.log(req.path)
 
 
-var url ="https://url.url/"+req.originalUrl.replace(/\/anti\-cors\/?/,"/");
+var url ="https://url.url/"+req.originalUrl.replace(/\/?anti\-cors\/?/,"");
 console.log(url);
 
- url = new URL(url);
+ url = new URL( new URL(url).pathname );
 console.log(url)
+
+http=protocol[url.protocol]
+
+if(!http) return res.status(404), res.send("invalid url");
 
 url = "https://catfact.ninja/fact"
 
