@@ -36,7 +36,17 @@ app.use(express.urlencoded({
 }))
 app.use(express.json())
 
-app.get('/zip', function(req, res){    
+app.get('/zip', function(req, res){ 
+var url; 
+url ="https://url.url/"+req.originalUrl.replace(/\/?anti\-cors\/?/,"");
+
+ url = new URL( new URL(url).pathname.substring(1));
+//console.log(url)
+
+http=protocol[url.protocol]
+
+if(!http) return res.status(404), res.send("invalid url");
+  
     var archive = Archiver('zip', {
   zlib: { level: 9 } // Sets the compression level.
 });
