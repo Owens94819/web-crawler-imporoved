@@ -76,17 +76,17 @@ if(!http) return res.status(404), res.send("invalid url");
     res.header('x-powered-by', 'nimo-org')
     res.setHeader("Access-Control-Expose-Headers", "X-Url")
 
- http =    http.get(url,
-        function (req){
+ http = http.get(url, function (req){
           // console.log(req.headers);
           // application/x-gzip
 
              res.status(req.statusCode);
-             res.setHeader('content-type', "application/unknown"||req.headers['content-type'])
-      req.pipe(res)
-    // req. pipe(gzip). pipe(res);
+             res.setHeader('content-type', "application/x-gzip"||req.headers['content-type'])
+          
+          // req.pipe(res)
+           req.pipe(gzip).pipe(res);
            
-// res.write("12345");
+           // res.write("12345");
           //  req.pipe(res);
         }
     )
