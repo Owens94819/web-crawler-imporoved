@@ -39,9 +39,9 @@ app.use(express.json())
 app.use('/zip*', function(req, res){ 
 var url; 
 url ="https://url.url/"+req.originalUrl.replace(/\/?zip\/?/,"");
-console.log(url)
+//console.log(url)
  url = new URL( new URL(url).pathname.substring(1));
-console.log(url)
+//console.log(url)
 
 http=protocol[url.protocol]
 
@@ -58,7 +58,7 @@ if(!http) return res.status(404), res.send("invalid url");
     //on stream closed we can end the request
     res.on('close', function() {
         console.log('Archive wrote %d bytes', archive.pointer());
-        return res.status(200).send('OK').end();
+       // return res.status(200).send('OK').end();
     });
 
     //set the archive name
@@ -66,7 +66,7 @@ if(!http) return res.status(404), res.send("invalid url");
     archive.pipe(res);
 
 http = http.get(url, function (req){      
-            // res.status(req.statusCode);
+            res.status(req.statusCode);
             // res.setHeader('content-type',"application/octet-stream"||req.headers['content-type'])                      
             archive.append(req, {
                 name:'data'+"."+
