@@ -79,12 +79,12 @@ if(!http) return res.status(404), res.send("invalid url");
  http = http.get(url, function (req){
           // console.log(req.headers);
           // application/x-gzip
+            // application/gzip
 
              res.status(req.statusCode);
-             res.setHeader('content-type', "application/x-gzip"||req.headers['content-type'])
+             res.setHeader('content-type', "application/gzip"||req.headers['content-type'])
           
-          // req.pipe(res)
-           req.pipe(gzip).pipe(res);
+             req.pipe(gzip).pipe(res);
            
            // res.write("12345");
           //  req.pipe(res);
