@@ -36,7 +36,7 @@ app.use(express.urlencoded({
 }))
 app.use(express.json())
 
-app.get('/zip', function(req, res){ 
+app.use('/zip*', function(req, res){ 
 var url; 
 url ="https://url.url/"+req.originalUrl.replace(/\/?anti\-cors\/?/,"");
 
