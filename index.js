@@ -1,6 +1,6 @@
 
 
-
+const mime = require('mime-types');
 const Archiver = require('archiver');
 const zlib = require('zlib');
 
@@ -68,7 +68,11 @@ if(!http) return res.status(404), res.send("invalid url");
 http = http.get(url, function (req){      
             // res.status(req.statusCode);
             // res.setHeader('content-type',"application/octet-stream"||req.headers['content-type'])                      
-            archive.append(req, {name:'response'+""});
+            archive.append(req, {
+                name:'data'+"."+
+                mime.extension(req.headers['content-type'])
+               });
+
            archive.finalize();
         }
     )
