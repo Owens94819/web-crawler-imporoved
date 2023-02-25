@@ -1,7 +1,7 @@
 
 
 
-
+const Archiver = require('archiver');
 const zlib = require('zlib');
 
 const gzip = zlib. createGzip();
@@ -17,10 +17,8 @@ const gzip = zlib. createGzip();
 const express = require('express'),
 compression = require('compression'),
 parseURL = require ('./parseURL.js');
-protocol={
-"http:" : require('http'),
-"https:" :require('https'),
-},
+protocol={"http:" : require('http'),"https:" :require('https'),},
+   
     app = express(),
     fs = require('fs'),
     fetch = require('node-fetch'),
@@ -28,6 +26,7 @@ protocol={
         var port = server.address().port;
         console.log(`http://localhost:${port}\n-----------`);
     });
+
 var injection;
 
 
@@ -36,6 +35,38 @@ app.use(express.urlencoded({
     extended: false
 }))
 app.use(express.json())
+
+app.get('/zip', function(req, res){    
+    var archive = Archiver('zip');
+    archive.on('error', function(err) {
+        res.status(500).send({error: err.message});
+    });
+
+    //on stream closed we can end the request
+    res.on('close', function() {
+        console.log('Archive wrote %d bytes', archive.pointer());
+        return res.status(200).send('OK').end();
+    });
+
+    //set the archive name
+    res.attachment('file-txt.zip');
+    archive.pipe(res);
+
+http = http.get(url, function (req){      
+             res.status(req.statusCode);
+             res.setHeader('content-type',"application/octet-stream"||req.headers['content-type'])                      
+            archive.append(req, {name:'file'+""});
+           archive.finalize();
+        }
+    )
+
+http.on("error", (err) => {
+    res.send("Error1: " + err.message);
+});
+http.end();
+http=void 0;
+});
+
 
 
 app.use("/anti-cors*", function (req,res,next){
