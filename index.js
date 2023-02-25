@@ -39,9 +39,9 @@ app.use(express.json())
 app.use('/zip*', function(req, res){ 
 var url; 
 url ="https://url.url/"+req.originalUrl.replace(/\/?zip\/?/,"");
-
+console.log(url)
  url = new URL( new URL(url).pathname.substring(1));
-//console.log(url)
+console.log(url)
 
 http=protocol[url.protocol]
 
