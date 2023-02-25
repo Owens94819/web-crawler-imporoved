@@ -37,7 +37,10 @@ app.use(express.urlencoded({
 app.use(express.json())
 
 app.get('/zip', function(req, res){    
-    var archive = Archiver('zip');
+    var archive = Archiver('zip', {
+  zlib: { level: 9 } // Sets the compression level.
+});
+
     archive.on('error', function(err) {
         res.status(500).send({error: err.message});
     });
