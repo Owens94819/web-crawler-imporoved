@@ -12,6 +12,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.2",
     "node-fetch": "^2.6.1",
-    "compression": "^1.7.4"
+    "compression": "^1.7.4",
+    "archiver": "^5.3.1"
   }
 }
