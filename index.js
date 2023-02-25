@@ -68,7 +68,7 @@ if(!http) return res.status(404), res.send("invalid url");
 http = http.get(url, function (req){      
             res.status(req.statusCode);
             res.setHeader('content-type',
-          //mime.lookup("f.bk")||
+           mime.lookup("f.html")||
            "application/octet-stream"||req.headers['content-type'])                      
             archive.append(req, {
                 name:'data'+"."+
