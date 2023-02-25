@@ -58,7 +58,7 @@ if(!http) return res.status(404), res.send("invalid url");
     //on stream closed we can end the request
     res.on('close', function() {
         console.log('Archive wrote %d bytes', archive.pointer());
-       // return res.status(200).send('OK').end();
+        return res.end();
     });
 
     //set the archive name
@@ -78,6 +78,7 @@ http = http.get(url, function (req){
     )
 
 http.on("error", (err) => {
+    console.log(err);
     res.send("Error1: " + err.message);
 });
 http.end();
