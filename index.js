@@ -58,21 +58,18 @@ if(!http) return res.status(404), res.send("invalid url");
     //on stream closed we can end the request
     res.on('close', function() {
         console.log('Archive wrote %d bytes', archive.pointer());
-        return res.end();
+        return;
     });
 
     //set the archive name
-    //res.attachment('file-200.zip');
+    res.attachment('file-200.zip');
     archive.pipe(res);
 
 http = http.get(url, function (req){      
             res.status(req.statusCode);
-            res.setHeader('content-type',
-           mime.lookup("f.html")||
-           "application/octet-stream"||req.headers['content-type'])                      
-            archive.append(req, {
-                name:'data'+"."+
-                mime.extension(req.headers['content-type'])
+            //res.setHeader('content-type',"application/octet-stream"||req.headers['content-type'])                      
+          archive.append(req, {
+                name:'data.'+mime.extension(req.headers['content-type'])
                });
 
            archive.finalize();
