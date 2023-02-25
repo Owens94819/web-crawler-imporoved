@@ -65,4 +65,4 @@ parseURL.isdomain = function (url) {
     return url.search(/^https?:\/\/+[^]*[:.]+\w|^[^\\\/\#\?]+\:/) >= 0
 }
 
-module.export =parseURL;
+module.exports =parseURL;
