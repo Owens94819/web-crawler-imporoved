@@ -82,7 +82,10 @@ if(!http) return res.status(404), res.send("invalid url");
             // application/gzip
            // application/octet-stream
              res.status(req.statusCode);
-             res.setHeader('content-type', "application/octet-stream"||"application/gzip"||req.headers['content-type'])
+             res.setHeader('content-type', 
+             //"application/octet-stream"||"application/gzip"||
+             req.headers['content-type']
+             )
           
             // req.pipe(gzip).pipe(res);
            
