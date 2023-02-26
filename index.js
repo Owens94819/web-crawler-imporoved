@@ -47,10 +47,11 @@ http=protocol[url.protocol]
 
 if(!http) return res.status(404), res.send("invalid url");
   
-    var archive = Archiver('zip', {
-  zlib: { level: 9 } // Sets the compression level.
-});
+   // var archive = Archiver('zip', {
+//  zlib: { level: 9 } // Sets the compression level.
+//});
 
+var archive = Archiver('zip')
     archive.on('error', function(err) {
         res.status(500).send({error: err.message});
     });
@@ -65,14 +66,15 @@ if(!http) return res.status(404), res.send("invalid url");
     res.attachment('file-200.zip');
     archive.pipe(res);
 
-http = http.get(url, function (req){      
-            res.status(req.statusCode);
+http = http.get(url, function (req){   
+             res.status(200)   
+            //res.status(req.statusCode);
             //res.setHeader('content-type',"application/octet-stream"||req.headers['content-type'])                      
           archive.append(req, {
-                name:'data.'+mime.extension(req.headers['content-type'])
+                name:'data.'+"html"//||mime.extension(req.headers['content-type'])
                });
 
-           archive.finalize();
+           setTimeout(function (){archive.finalize();},2000)
         }
     )
 
