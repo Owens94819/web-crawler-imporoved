@@ -4,7 +4,7 @@ const mime = require('mime-types');
 const Archiver = require('archiver');
 const zlib = require('zlib');
 
-const gzip = zlib. createGzip();
+
 
 // const fs = require('fs');
 
@@ -65,16 +65,12 @@ var archive = Archiver('zip')
     //set the archive name
     res.attachment('file-200.zip');
     archive.pipe(res);
-
+const zip = zlib. createDeflate();
 http = http.get(url, function (req){   
-             res.status(200)   
+             res.status(200) 
+             req.pipe(zip)
             //res.status(req.statusCode);
-            //res.setHeader('content-type',"application/octet-stream"||req.headers['content-type'])                      
-          archive.append(req, {
-                name:'data.'+"html"//||mime.extension(req.headers['content-type'])
-               });
-
-           setTimeout(function (){archive.finalize();},2000)
+            //res.setHeader('content-type',"application/octet-stream"||req.headers['content-type']) 
         }
     )
 
