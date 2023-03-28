@@ -90,7 +90,7 @@ var url=`https://www.google.com/search?q=Kick&tbm=isch&start=40&sfr=gws&gbv=1&se
 res.setHeader("content-type","text/html");
 res.status(200);
 fetch (url).then(function (e){
-e.text().then(res.send);
+e.text().then(function (e){res.send(e)});
 })
 return;
 
