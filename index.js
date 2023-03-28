@@ -76,11 +76,11 @@ if(!http) return res.json(protocol);
         req.headers["content-type"]
       );
       req.pipe(res);
-    });
-
-    http.on("error", (err) => {
+    })
+     .on("error", (err) => {
       res.send("Error1: " + err.message);
-    }).end()
+    })
+    .end()
 
  //   http.end();
     //http = void 0;
