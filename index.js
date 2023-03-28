@@ -85,6 +85,8 @@ var url=`https://www.google.com/search?q=${q.q}&tbm=isch&start=${q.start}`
 //https://www.google.com/search?q=Kick&tbm=isch&sxsrf=APwXEdc4DUH0nIclRbZ87siToJMW6OgGng:1680020079979&ei=bxIjZMe4O9KL8gL2r5LwDg&start=20&sa=N
 if(!http) return res.json(protocol);
 //https://wim.cyclic.app/url?q=https://daily.jstor.org/ai-caramba-artificial-intelligence-and-policymaking/&sa=U&ved=2ahUKEwjY9N66-P79AhUqVqQEHUFOC-M4PBCqhQF6BAgHEAE&usg=AOvVaw2Dv768xozZEyDg--qn3xAk
+//https://www.google.com/search?q=Kick&tbm=isch&start=20&sfr=gws&gbv=1&sei=3BQjZPOnD6DfnsEPgtuWmAU
+var url=`https://www.google.com/search?q=Kick&tbm=isch&start=40&sfr=gws&gbv=1&sei=3BQjZPOnD6DfnsEPgtuWmAU`
  http.get(url, function (req) {
       res.status(req.statusCode);
       res.setHeader("info",JSON.stringify(req.headers));
