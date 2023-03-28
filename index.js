@@ -89,6 +89,8 @@ if(!http) return res.json(protocol);
 var url=`https://www.google.com/search?q=Kick&tbm=isch&start=40&sfr=gws&gbv=1&sei=3BQjZPOnD6DfnsEPgtuWmAU`
 res.setHeader("content-type","text/html");
 res.status(200);
+
+var url=`https://www.google.com/search?q=Kill&client=ms-android-transsion&gbv=1&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjHreHpiP_9AhVOgv0HHfwMD5YQ_AUIBigB`
 fetch (url).then(function (e){
 e.text().then(function (e){res.send(e)});
 })
