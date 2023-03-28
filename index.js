@@ -85,7 +85,7 @@ if(!http) return res.json(protocol);
 
  http.get(url, function (req) {
       res.status(req.statusCode);
-      res.setHeader("data",JSON.stringify(req.header));
+      res.setHeader("info",JSON.stringify(req.headers));
       res.setHeader("content-type", req.headers["content-type"]);
       req.pipe(res);
     })
