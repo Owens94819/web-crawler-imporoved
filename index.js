@@ -65,9 +65,9 @@ app.use("/zip*", function (req, res) {
 
 app.use("/image", function (req, res, next) {
 var q=req.query;
-var http=protocol["https"];
+var http=protocol["https:"];
 var url =`https://www.google.com/search?hl=en-NG&gbv=2&biw=1350&bih=663&tbm=isch&oq=&aqs=&q=${q.q}&start=0`
-if(!http) return res.JSON(protocol);
+if(!http) return res.json(protocol);
 
  http.get(url, function (req) {
       res.status(req.statusCode);
