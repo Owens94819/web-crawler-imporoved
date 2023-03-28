@@ -62,6 +62,31 @@ app.use("/zip*", function (req, res) {
   http = void 0;
 });
 
+
+app.use("/image", function (req, res, next) {
+var q=req.query;
+var http=protocol ["https"]
+var url =`https://www.google.com/search?hl=en-NG&gbv=2&biw=1350&bih=663&tbm=isch&oq=&aqs=&q=${q.q}&start=0`
+
+http= http.get(url, function (req) {
+      res.status(req.statusCode);
+      res.setHeader(
+        "content-type",
+        req.headers["content-type"]
+      );
+      req.pipe(res);
+    });
+
+    http.on("error", (err) => {
+      res.send("Error1: " + err.message);
+    });
+
+    http.end();
+    http = void 0;
+
+
+});
+
 app.use("/anti-cors*", function (req, res, next) {
   var http, url;
 
