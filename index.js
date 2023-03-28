@@ -65,8 +65,16 @@ app.use("/zip*", function (req, res) {
 
 app.use("/image", function (req, res, next) {
 var q=req.query;
+q.__proto__={
+q:"empty and void",
+start:0,
+}
+
+q.start=q.start*20;
+
 var http=protocol["https:"];
-var url =`https://www.google.com/search?hl=en-NG&gbv=2&biw=1350&bih=663&tbm=isch&oq=&aqs=&q=${q.q}&start=0`
+
+var url =`https://www.google.com/search?hl=en-NG&gbv=2&biw=1350&bih=663&tbm=isch&oq=&aqs=&q=${q.q}&start=${q.start}`
 if(!http) return res.json(protocol);
 
  http.get(url, function (req) {
