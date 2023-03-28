@@ -64,6 +64,12 @@ app.use("/zip*", function (req, res) {
 
 
 app.use("/image", function (req, res, next) {
+
+res.setHeader("Access-Control-Allow-Origin", "*");
+    res.header("x-powered-by", "nimo-org");
+    res.setHeader("Access-Control-Expose-Headers", "info");
+
+
 var q=req.query;
 q.__proto__={
 q:"empty and void",
@@ -79,10 +85,8 @@ if(!http) return res.json(protocol);
 
  http.get(url, function (req) {
       res.status(req.statusCode);
-      res.setHeader(
-        "content-type",
-        req.headers["content-type"]
-      );
+      res.setHeader("data",JSON.stringify(req.header));
+      res.setHeader("content-type", req.headers["content-type"]);
       req.pipe(res);
     })
      .on("error", (err) => {
