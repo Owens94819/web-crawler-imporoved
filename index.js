@@ -131,10 +131,11 @@ app.use("/anti-cors*", function (req, res, next) {
     //console.log(req.path)
 
     url = "https://url.url/" + decodeURIComponent(req.originalUrl.replace(/\/?anti\-cors\/?/, ""));
-url= new URL(url)
+url= new URL(url). href.replace("https://url.url/","");
+
 console.log(url)
 
-    url = new URL(url.pathname.substring(1));
+    url = new URL(url));
     
 
 console.log(url)
